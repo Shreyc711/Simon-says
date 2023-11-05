@@ -22,9 +22,14 @@ function btnflash(btn){    //btn flash function to make button flash.
     setTimeout(function (){ //this timeout function will decide how long btn will turn white/flash.
         btn.classList.remove("flash") //once flashed remove flash class.so we can make it flash again
     },250)
+};
 
-   
+function userflash(btn){    //btn flash function to make button flash.
+    btn.classList.add("userflash");  //we made flash classlist in style.css and this line passes that class to btn
 
+    setTimeout(function (){ //this timeout function will decide how long btn will turn white/flash.
+        btn.classList.remove("userflash") //once flashed remove flash class.so we can make it flash again
+    },250)
 };
 
 function levelUp(){ 
@@ -44,4 +49,19 @@ function levelUp(){
   
 };
 
+function btnpress(){
+    let btn = this;
+    
+    userflash(btn);
+    
+};
+
+
+
+
+let allbtn = document.querySelectorAll('.boxes');
+
+for(btn of allbtn){
+    btn.addEventListener('click',btnpress)
+};
 
