@@ -33,6 +33,7 @@ function userflash(btn){    //btn flash function to make button flash.
 };
 
 function levelUp(){ 
+    userSeq=[];
     level++; //this function will add level number in variable level which we declared zero.
 
     h2.innerText = `Level ${level}` //and then it will display this text instead of heading.
@@ -46,14 +47,42 @@ function levelUp(){
     let randbtn = document.querySelector(`.${randColor}`)  //this randbtn variable  selectes randcolor class
     btnflash(randbtn) //we passed randbtn value to btnflash function
 
-  
+  gameSeq.push(randColor)
+  console.log(gameSeq)
+
+
+
+ 
+};
+
+
+
+function checkAns(idx){
+    //console.log(`current level is:${level}`)
+
+    
+
+    if(userSeq[idx] === gameSeq[idx]){
+        if(userSeq.length === gameSeq.length){
+            setTimeout(levelUp,1000)   //having issues around this function
+        }
+        
+        
+    } else {
+        h2.innerText = "game over "
+        reset();
+    }
+
 };
 
 function btnpress(){
     let btn = this;
     
     userflash(btn);
-    
+    userColor = btn.getAttribute("id");
+    userSeq.push(userColor);
+    console.log(userSeq)
+    checkAns();
 };
 
 
@@ -65,3 +94,12 @@ for(btn of allbtn){
     btn.addEventListener('click',btnpress)
 };
 
+
+
+function reset(){
+    started = false;
+    gameSeq = [];
+    userSeq = [];
+    level = 0;
+
+};
