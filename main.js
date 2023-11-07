@@ -17,7 +17,9 @@ document.addEventListener('keypress', function (){ //this function looks for key
 });
 
 function btnflash(btn){    //btn flash function to make button flash.
-    btn.classList.add("flash");  //we made flash classlist in style.css and this line passes that class to btn
+    //this timeout function will decide how long btn will turn white/flash.
+        btn.classList.add("flash") //once flashed remove flash class.so we can make it flash again
+      //we made flash classlist in style.css and this line passes that class to btn
 
     setTimeout(function (){ //this timeout function will decide how long btn will turn white/flash.
         btn.classList.remove("flash") //once flashed remove flash class.so we can make it flash again
@@ -25,15 +27,17 @@ function btnflash(btn){    //btn flash function to make button flash.
 };
 
 function userflash(btn){    //btn flash function to make button flash.
-    btn.classList.add("userflash");  //we made flash classlist in style.css and this line passes that class to btn
+     //this timeout function will decide how long btn will turn white/flash.
+        btn.classList.add("userflash") //once flashed remove flash class.so we can make it flash again
+     //we made flash classlist in style.css and this line passes that class to btn
 
-    setTimeout(function (){ //this timeout function will decide how long btn will turn white/flash.
+    setTimeout(()=>{ //this timeout function will decide how long btn will turn white/flash.
         btn.classList.remove("userflash") //once flashed remove flash class.so we can make it flash again
     },250)
 };
 
 function levelUp(){ 
-    userSeq=[];
+    userSeq = [];
     level++; //this function will add level number in variable level which we declared zero.
 
     h2.innerText = `Level ${level}` //and then it will display this text instead of heading.
@@ -58,22 +62,25 @@ function levelUp(){
 
 
 function checkAns(idx){
-    //console.log(`current level is:${level}`)
 
-    
 
     if(userSeq[idx] === gameSeq[idx]){
-        if(userSeq.length === gameSeq.length){
-            setTimeout(levelUp,1000)   //having issues around this function
-        }
-        
-        
-    } else {
-        h2.innerText = "game over "
-        reset();
+        if(userSeq.length == gameSeq.length){
+            levelUp();
+        };
     }
+    else{
+        h2.innerText = `game over your score was ${level}`; 
+        document.querySelector("body").style.background = "red";
 
-};
+        setTimeout(() => {
+            document.querySelector("body").style.background = "white";
+        }, 150);
+
+     
+    }; 
+
+};  
 
 function btnpress(){
     let btn = this;
@@ -82,7 +89,7 @@ function btnpress(){
     userColor = btn.getAttribute("id");
     userSeq.push(userColor);
     console.log(userSeq)
-    checkAns();
+    checkAns(userSeq.length -1);
 };
 
 
